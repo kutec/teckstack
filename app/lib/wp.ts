@@ -18,12 +18,21 @@ async function safeFetch (url: string) {
   }
 }
 
+/** Get all posts (careful with volume) */
 export async function getAllPosts () {
-  const url = `${WP_URL}/posts?_embed`
+  const url = `${WP_URL}/posts?_embed&per_page=100`
   console.debug('[lib/wp] getAllPosts ->', url)
   return safeFetch(url)
 }
 
+/** Get latest posts with a limit */
+export async function getLatestPosts (limit = 6) {
+  const url = `${WP_URL}/posts?_embed&per_page=${limit}&orderby=date&order=desc`
+  console.debug('[lib/wp] getLatestPosts ->', url)
+  return safeFetch(url)
+}
+
+/** Get one post by slug */
 export async function getPostBySlug (slug: string) {
   if (!slug) return null
   const url = `${WP_URL}/posts?slug=${encodeURIComponent(slug)}&_embed`

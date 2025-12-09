@@ -1,5 +1,32 @@
 # Changelog
 
+## [0.1.1] - 2025-12-09
+
+### Added
+* Implemented accessible Skip to Content feature using a keyboard-first SkipLink component.
+* Added mobile navigation toggle with Escape-to-close behavior.
+* Added shrink-on-scroll header behavior (dynamic padding + shadow).
+* Added animated underline for active navigation items.
+* Added centered underline positioning to maintain consistency when header shrinks.
+* Added improved active state (pill background) for current navigation item.
+* Added additional accessibility enhancements (ARIA attributes, focus handling).
+
+### Changed
+* Refactored Header.tsx into a full client component with controlled menu state.
+* Updated navigation markup to support underline animation and scroll behavior.
+* Cleaned up hero styling and improved text contrast.
+* Improved DOM structure by placing SkipLink inside header.
+* Updated global CSS with underline transitions, header transitions, and stacking context fixes.
+
+### Fixed
+* Removed visual glitch caused by skip-link sliver appearing in the top-left corner.
+* Fixed underline not being visible after header scroll.
+* Fixed active nav styling getting overwritten by layout changes.
+* Fixed overlapping header spacing issues on scroll.
+* Fixed mobile nav menu remaining open after navigation.
+
+
+
 ## [0.1.0] - 2025-12-09
 
 ### Added

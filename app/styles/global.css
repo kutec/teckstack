@@ -1,58 +1,66 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Optional: small reset for images inside posts */
-.prose img {
-  border-radius: 0.5rem;
-  max-width: 100%;
-  height: auto;
+/* Skip link initial positioning and visible focus state */
+/* utilities for visually-hidden but focus-visible elements (accessible) */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
-/* Improve readability for code blocks inside .prose */
-.prose pre {
-  background: #0f172a; /* dark background for code block container */
-  color: white;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  overflow: auto;
-  font-size: 0.95rem;
+/* when focused, reveal it (keyboard users) */
+.focus\:not-sr-only:focus,
+.focus\:not-sr-only:focus-visible {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0.45rem 0.7rem !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  clip: auto !important;
+  clip-path: none !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
+  box-shadow: 0 6px 18px rgba(10, 10, 10, 0.06) !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  z-index: 99999 !important;
 }
 
-/* Inline code */
-.prose code {
-  background: #f1f5f9;
-  padding: 0.15rem 0.35rem;
-  border-radius: 0.35rem;
-  font-size: 0.95em;
+/* Safety: ensure header/other ancestors don't clip fixed children unexpectedly */
+html,
+body,
+#__next {
+  overflow: visible !important;
 }
 
-/* Add space for copy button (we will absolutely position it) */
-.post-content-pre {
+/* ensure the li is a positioning context */
+header nav ul li {
   position: relative;
 }
 
-/* Copy button */
-.copy-btn {
-  position: absolute;
-  right: 0.5rem;
-  top: 0.5rem;
-  background: rgba(255, 255, 255, 0.06);
-  color: #fff;
-  border: none;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.35rem;
-  font-size: 0.85rem;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
+/* smooth underline transition */
+header nav ul li > span {
+  transition: width 220ms cubic-bezier(0.2, 0.9, 0.3, 1);
+  will-change: width;
 }
 
-/* Light theme override for copy button text/hover */
-.copy-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
+/* header transition smoothing */
+header {
+  transition: padding 180ms ease, box-shadow 180ms ease;
 }
 
-/* .prose style size adjustments */
-.prose {
-  line-height: 1.65;
+/* slight shadow style when scrolled (class added via scrolled state) */
+header.shadow-md {
+  box-shadow: 0 8px 20px rgba(2, 6, 23, 0.08);
+}
+
+/* ensure header sits above hero and content */
+header {
+  z-index: 50;
 }

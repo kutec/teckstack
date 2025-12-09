@@ -26,7 +26,7 @@ export default async function PostPage({ params }: Props) {
     return (
         <>
             <Header />
-            <main className="max-w-3xl mx-auto py-12 px-4">
+            <main id="main" className="max-w-3xl mx-auto py-12 px-4">
                 <h1 className="text-4xl font-extrabold mb-4" dangerouslySetInnerHTML={{ __html: title }} />
                 {/* meta (date, reading time, author) */}
                 <div className="text-sm text-gray-500 mb-8">

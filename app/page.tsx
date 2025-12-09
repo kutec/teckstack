@@ -1,41 +1,50 @@
+// app/page.tsx
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import Image from "next/image";
+import PostCard from "@/components/PostCard";
+import { getLatestPosts } from "@/lib/wp";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const posts = await getLatestPosts(6).catch((err) => {
+    console.error("Failed to load latest posts:", err);
+    return [];
+  });
+
   return (
     <>
       <Header />
-      <Hero />
+      <main>
+        <Hero />
 
-      <section className="max-w-6xl mx-auto py-16">
-        <h2 className="text-2xl font-bold text-center mb-10">
-          Featured Categories
-        </h2>
+        <section className="max-w-6xl mx-auto px-4 py-12">
+          <h2 className="text-2xl font-bold mb-6">Latest posts</h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { title: "React JS", icon: "/react.png" },
-            { title: "JavaScript", icon: "/javascript.png" },
-            { title: "CSS3", icon: "/css.png" },
-            { title: "HTML5", icon: "/html.png" },
-          ].map((cat) => (
-            <div
-              key={cat.title}
-              className="bg-white p-6 rounded shadow text-center"
-            >
-              <Image
-                src={cat.icon}
-                alt={cat.title}
-                className="h-20 mx-auto mb-4"
-                width={200}
-                height={200}
-              />
-              <p className="font-medium">{cat.title}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {posts && posts.length > 0 ? (
+              posts.map((p: any) => <PostCard key={p.id} post={p} />)
+            ) : (
+              // fallback when no posts
+              <>
+                <div className="p-6 bg-white rounded shadow">No posts yet — publish one from WP!</div>
+              </>
+            )}
+          </div>
+        </section>
+
+        <section className="bg-gray-50 py-12">
+          <div className="max-w-6xl mx-auto px-4">
+            <h3 className="text-xl font-semibold mb-4">Featured categories</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {["React", "JavaScript", "CSS", "Career"].map((c) => (
+                <a key={c} className="block bg-white border rounded p-4 text-center hover:shadow" href={`/categories/${c.toLowerCase()}`}>
+                  <div className="font-semibold">{c}</div>
+                  <div className="text-sm text-gray-500 mt-1">Guides & tutorials</div>
+                </a>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
+      </main>
     </>
   );
 }

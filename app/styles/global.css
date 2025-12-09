@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optional: small reset for images inside posts */
+.prose img {
+  border-radius: 0.5rem;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Improve readability for code blocks inside .prose */
+.prose pre {
+  background: #0f172a; /* dark background for code block container */
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow: auto;
+  font-size: 0.95rem;
+}
+
+/* Inline code */
+.prose code {
+  background: #f1f5f9;
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.35rem;
+  font-size: 0.95em;
+}
+
+/* Add space for copy button (we will absolutely position it) */
+.post-content-pre {
+  position: relative;
+}
+
+/* Copy button */
+.copy-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.35rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+
+/* Light theme override for copy button text/hover */
+.copy-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* .prose style size adjustments */
+.prose {
+  line-height: 1.65;
+}

@@ -1,43 +1,51 @@
-// components/Hero.tsx
+// app/components/Hero.tsx
 import Link from "next/link";
-import HeroRight from "@/components/HeroRight";
+import HeroRight from "./HeroRight";
+import { getSiteOptions, getPostById } from "@/lib/wp";
 
-export default function Hero() {
+export default async function Hero() {
+    let opts = null;
+    let featuredPost = null;
+    try {
+        const data = await getSiteOptions();
+        opts = data?.options ?? null;
+        const f = data?.featured ?? null;
+        if (f?.id) {
+            featuredPost = await getPostById(f.id);
+        }
+    } catch (err) {
+        console.error("Failed to load options/featured:", err);
+    }
+
+    const title = opts?.hero_title || "Smarter <span class='text-blue-600'>Tech Learning</span>";
+    const subtitle = opts?.hero_subtitle || "Practical guides, React patterns, and debugging notes based on real experience — deep dives without the fluff.";
+    const ctaLabel = opts?.hero_cta_label || "Start Here";
+    const ctaUrl = opts?.hero_cta_url || "/start-here";
+    const newsletterText = opts?.newsletter_text || "No spam. Unsubscribe anytime.";
+
     return (
         <section className="bg-white">
-            <div className="max-w-6xl mx-auto px-4 py-6 md:py-10">
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:items-center">
-                    {/* LEFT: strong hero text */}
-                    <div className="md:col-span-7">
-                        <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-gray-900">
-                            Smarter <span className="text-blue-600">Tech Learning</span>
-                            <br />
-                            for Modern Developers
-                        </h1>
-
-                        <p className="mt-6 text-gray-700 max-w-xl">
-                            Practical guides, React patterns, and debugging notes based on real experience — deep dives without the fluff.
-                        </p>
-
-                        <div className="mt-8 flex flex-wrap gap-3">
-                            <Link href="/start-here" className="inline-flex items-center px-5 py-3 bg-blue-600 text-white rounded-md font-medium shadow-sm">
-                                Start Here
-                            </Link>
-
-                            <Link href="/blog" className="inline-flex items-center px-5 py-3 border rounded-md text-gray-700 bg-white/80 hover:bg-gray-100">
-                                Read the Blog
-                            </Link>
-                        </div>
-
-                        <div className="mt-6 text-sm text-gray-500">
-                            <strong>Tip:</strong> Start with the “React fundamentals” guide for a quick ramp-up.
-                        </div>
+            <div className="max-w-6xl mx-auto px-4 py-10 md:py-14 grid grid-cols-1 md:grid-cols-12 md:items-center gap-8">
+                <div className="md:col-span-7">
+                    <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-gray-900" dangerouslySetInnerHTML={{ __html: title }} />
+                    <p className="mt-6 text-gray-700">{subtitle}</p>
+                    <div className="mt-8 flex flex-wrap gap-3">
+                        <Link href={ctaUrl} className="inline-flex items-center px-5 py-3 bg-blue-600 text-white rounded-md shadow-sm">
+                            {ctaLabel}
+                        </Link>
+                        <Link href="/blog" className="inline-flex items-center px-5 py-3 border rounded-md text-gray-700 bg-white/80 hover:bg-gray-100">
+                            Read the Blog
+                        </Link>
                     </div>
-
-                    {/* RIGHT: cards + newsletter (client component handles animation & form) */}
-                    <div className="md:col-span-5">
-                        <HeroRight />
+                    <div className="mt-6 text-sm text-gray-500">
+                        <strong>Tip:</strong> Start with the “React fundamentals” guide for a quick ramp-up.
                     </div>
+                </div>
+
+                <div className="md:col-span-5">
+                    {/* pass featured post and newsletterText */}
+                    {/* HeroRight is client; pass data as props to render dynamic content */}
+                    <HeroRight featured={featuredPost} newsletterText={newsletterText} />
                 </div>
             </div>
         </section>

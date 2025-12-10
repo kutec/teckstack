@@ -2,7 +2,21 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function PostCard({ post }: { post: any }) {
+interface Post {
+    title?: { rendered: string };
+    slug: string;
+    excerpt?: { rendered: string };
+    content?: { rendered: string };
+    _embedded?: {
+        "wp:featuredmedia"?: Array<{
+            source_url: string;
+            alt_text?: string;
+        }>;
+    };
+    date: string;
+}
+
+export default function PostCard({ post }: { post: Post }) {
     const title = post?.title?.rendered ?? "Untitled";
     const slug = post?.slug;
     const excerpt = (post?.excerpt?.rendered ?? post?.content?.rendered ?? "").replace(/<[^>]+>/g, "").slice(0, 120);

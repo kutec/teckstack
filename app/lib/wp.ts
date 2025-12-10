@@ -1,6 +1,14 @@
 // lib/wp.ts
-export const WP_URL =
-  process.env.WP_URL ?? 'http://teckstack.local/wp-json/wp/v2'
+export const WP_API_BASE = process.env.WP_API_BASE ?? 'http://teckstack.local'
+export const WP_URL = `${WP_API_BASE.replace(/\/$/, '')}/wp-json/wp/v2`
+export const TS_OPTIONS_URL = `${WP_API_BASE.replace(
+  /\/$/,
+  ''
+)}/wp-json/teckstack/v1/options`
+export const TS_SUBSCRIBE_URL = `${WP_API_BASE.replace(
+  /\/$/,
+  ''
+)}/wp-json/teckstack/v1/subscribe`
 
 async function safeFetch (url: string) {
   try {
@@ -18,6 +26,20 @@ async function safeFetch (url: string) {
   }
 }
 
+export async function getSiteOptions () {
+  return safeFetch(TS_OPTIONS_URL)
+}
+
+export async function getPostById (id: number) {
+  return safeFetch(`${WP_URL}/posts/${id}?_embed`)
+}
+
+export async function getLatestPosts (limit = 6) {
+  return safeFetch(
+    `${WP_URL}/posts?_embed&per_page=${limit}&orderby=date&order=desc`
+  )
+}
+
 /** Get all posts (careful with volume) */
 export async function getAllPosts () {
   const url = `${WP_URL}/posts?_embed&per_page=100`
@@ -26,11 +48,11 @@ export async function getAllPosts () {
 }
 
 /** Get latest posts with a limit */
-export async function getLatestPosts (limit = 6) {
-  const url = `${WP_URL}/posts?_embed&per_page=${limit}&orderby=date&order=desc`
-  console.debug('[lib/wp] getLatestPosts ->', url)
-  return safeFetch(url)
-}
+// export async function getLatestPosts (limit = 6) {
+//   const url = `${WP_URL}/posts?_embed&per_page=${limit}&orderby=date&order=desc`
+//   console.debug('[lib/wp] getLatestPosts ->', url)
+//   return safeFetch(url)
+// }
 
 /** Get one post by slug */
 export async function getPostBySlug (slug: string) {

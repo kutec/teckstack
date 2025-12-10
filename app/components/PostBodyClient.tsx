@@ -18,14 +18,6 @@ type Props = {
 export default function PostBodyClient({ html }: Props) {
     const ref = useRef<HTMLDivElement | null>(null);
 
-    useEffect(() => {
-        // Highlight all code blocks inside this container
-        if (ref.current) {
-            Prism.highlightAllUnder(ref.current);
-            addCopyButtons(ref.current);
-        }
-    }, [html]);
-
     // Adds a simple copy button to each pre > code
     function addCopyButtons(root: HTMLElement) {
         const pres = Array.from(root.querySelectorAll("pre"));
@@ -55,6 +47,14 @@ export default function PostBodyClient({ html }: Props) {
             pre.appendChild(button);
         });
     }
+
+    useEffect(() => {
+        // Highlight all code blocks inside this container
+        if (ref.current) {
+            Prism.highlightAllUnder(ref.current);
+            addCopyButtons(ref.current);
+        }
+    }, [html]);
 
     return (
         <div

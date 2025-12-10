@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.2] - 2025-12-10
+
+### Added
+* (static) Newletter mock functinoality and UI component
+* (static) HerpRight Component section in Hero component with animated cards effect (Statically defined)
+
+### Changed
+* Reduced overall hero section vertical padding for a more compact layout (`py-6 md:py-10`).
+* Vertically centered left hero content relative to right-side cards for balanced visual hierarchy.
+
+---
+
 ## [0.1.1] - 2025-12-09
 
 ### Added
@@ -25,7 +37,7 @@
 * Fixed overlapping header spacing issues on scroll.
 * Fixed mobile nav menu remaining open after navigation.
 
-
+---
 
 ## [0.1.0] - 2025-12-09
 
@@ -46,6 +58,8 @@
 ### Fixed
 * Local API connection debugging: environment variable support for WP_URL.
 * 404 caused by unwrapped params.slug (fixed to const { slug } = await params;).
+
+---
 
 ### Backlog
 #### Dev

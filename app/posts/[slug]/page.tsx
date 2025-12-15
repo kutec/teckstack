@@ -7,6 +7,7 @@ type Props = { params: Promise<{ slug: string }> };
 
 export default async function PostPage({ params }: Props) {
     const { slug } = await params;
+    console.log("::: Fetching post with slug:", slug);
     const post = await getPostBySlug(slug);
 
     if (!post) {

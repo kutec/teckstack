@@ -1,68 +1,66 @@
 // lib/wp.ts
-export const WP_API_BASE = process.env.WP_API_BASE ?? 'http://teckstack.local'
-export const WP_URL = `${WP_API_BASE.replace(/\/$/, '')}/wp-json/wp/v2`
-export const TS_OPTIONS_URL = `${WP_API_BASE.replace(
-  /\/$/,
-  ''
-)}/wp-json/teckstack/v1/options`
-export const TS_SUBSCRIBE_URL = `${WP_API_BASE.replace(
-  /\/$/,
-  ''
-)}/wp-json/teckstack/v1/subscribe`
+
+const WP_BASE =
+  process.env.WP_API_BASE ||
+  process.env.NEXT_PUBLIC_WP_API_BASE ||
+  'http://teckstack.local'
+
+const BASE = WP_BASE.replace(/\/$/, '')
+
+export const WP_REST = `${BASE}/wp-json/wp/v2`
+export const TS_OPTIONS_URL = `${BASE}/wp-json/teckstack/v1/options`
+export const TS_SUBSCRIBE_URL = `${BASE}/wp-json/teckstack/v1/subscribe`
 
 async function safeFetch (url: string) {
-  try {
-    const res = await fetch(url)
-    if (!res.ok) {
-      const txt = await res.text().catch(() => '')
-      throw new Error(
-        `WP fetch failed (${res.status}) ${res.statusText} - ${txt}`
-      )
-    }
-    return res.json()
-  } catch (err) {
-    console.error('[lib/wp] safeFetch error:', err)
-    throw err
+  if (!url.startsWith('http')) {
+    throw new Error(`Invalid WP URL (relative): ${url}`)
   }
+
+  const res = await fetch(url, { cache: 'no-store' })
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => '')
+    throw new Error(`WP fetch failed (${res.status}): ${text}`)
+  }
+
+  return res.json()
 }
+
+/* ---------------- OPTIONS ---------------- */
 
 export async function getSiteOptions () {
   return safeFetch(TS_OPTIONS_URL)
 }
 
-export async function getPostById (id: number) {
-  return safeFetch(`${WP_URL}/posts/${id}?_embed`)
-}
-
-export async function getLatestPosts (limit = 6) {
+/* ---------------- POSTS ---------------- */
+export async function getLatestPosts (limit = 5) {
   return safeFetch(
-    `${WP_URL}/posts?_embed&per_page=${limit}&orderby=date&order=desc`
+    `${WP_REST}/posts?_embed&per_page=${limit}&orderby=date&order=desc`
   )
 }
 
-/** Get all posts (careful with volume) */
-export async function getAllPosts () {
-  const url = `${WP_URL}/posts?_embed&per_page=100`
-  console.debug('[lib/wp] getAllPosts ->', url)
-  return safeFetch(url)
+export async function getPostById (id: number) {
+  return safeFetch(`${WP_REST}/posts/${id}?_embed`)
 }
 
-/** Get latest posts with a limit */
-// export async function getLatestPosts (limit = 6) {
-//   const url = `${WP_URL}/posts?_embed&per_page=${limit}&orderby=date&order=desc`
-//   console.debug('[lib/wp] getLatestPosts ->', url)
-//   return safeFetch(url)
-// }
-
-/** Get one post by slug */
 export async function getPostBySlug (slug: string) {
-  if (!slug) return null
-  const url = `${WP_URL}/posts?slug=${encodeURIComponent(slug)}&_embed`
-  console.debug('[lib/wp] getPostBySlug ->', url)
-  const arr = await safeFetch(url)
-  if (!Array.isArray(arr) || arr.length === 0) {
-    console.warn(`[lib/wp] getPostBySlug: no post found for slug=${slug}`)
-    return null
-  }
-  return arr[0]
+  const arr = await safeFetch(
+    `${WP_REST}/posts?slug=${encodeURIComponent(slug)}&_embed`
+  )
+  return arr?.[0] ?? null
+}
+
+/* ---------------- GUIDES (CPT) ---------------- */
+
+export async function getGuideBySlug (slug: string) {
+  const arr = await safeFetch(
+    `${WP_REST}/guides?slug=${encodeURIComponent(slug)}&_embed`
+  )
+  return arr?.[0] ?? null
+}
+
+export async function getGuides (limit = 10) {
+  return safeFetch(
+    `${WP_REST}/guides?_embed&per_page=${limit}&orderby=date&order=desc`
+  )
 }

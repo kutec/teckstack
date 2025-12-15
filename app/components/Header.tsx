@@ -7,7 +7,7 @@ import SkipLink from "@/components/SkipLink";
 
 const NAV = [
     { href: "/", label: "Home" },
-    { href: "/blog", label: "Blog" },
+    { href: "/posts", label: "Blog" },
     { href: "/start-here", label: "Start Here" },
     { href: "/guides", label: "Guides" },
     { href: "/resources", label: "Resources" },
@@ -22,7 +22,8 @@ export default function Header() {
 
     // close menu on route change
     useEffect(() => {
-        setOpen(false);
+        const timer = setTimeout(() => setOpen(false), 0);
+        return () => clearTimeout(timer);
     }, [pathname]);
 
     // close on escape

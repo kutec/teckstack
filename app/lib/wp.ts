@@ -33,9 +33,12 @@ export async function getSiteOptions () {
 }
 
 /* ---------------- POSTS ---------------- */
-export async function getLatestPosts (limit = 5) {
+export async function getLatestPosts (limit = 6, excludeIds: number[] = []) {
+  const excludeQuery =
+    excludeIds.length > 0 ? `&exclude=${excludeIds.join(',')}` : ''
+
   return safeFetch(
-    `${WP_REST}/posts?_embed&per_page=${limit}&orderby=date&order=desc`
+    `${WP_REST}/posts?_embed&per_page=${limit}&orderby=date&order=desc${excludeQuery}`
   )
 }
 

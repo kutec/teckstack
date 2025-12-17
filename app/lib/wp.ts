@@ -33,12 +33,38 @@ export async function getSiteOptions () {
 }
 
 /* ---------------- POSTS ---------------- */
+
+/**
+ * Latest posts (used on homepage, widgets, etc.)
+ * Not paginated
+ */
 export async function getLatestPosts (limit = 6, excludeIds: number[] = []) {
   const excludeQuery =
     excludeIds.length > 0 ? `&exclude=${excludeIds.join(',')}` : ''
 
   return safeFetch(
     `${WP_REST}/posts?_embed&per_page=${limit}&orderby=date&order=desc${excludeQuery}`
+  )
+}
+
+/**
+ * Paginated posts (used for /posts, /posts/page/2, etc.)
+ * SEO-friendly & route-based
+ */
+export async function getPostsPaginated ({
+  page = 1,
+  perPage = 12,
+  excludeIds = []
+}: {
+  page?: number
+  perPage?: number
+  excludeIds?: number[]
+}) {
+  const excludeQuery =
+    excludeIds.length > 0 ? `&exclude=${excludeIds.join(',')}` : ''
+
+  return safeFetch(
+    `${WP_REST}/posts?_embed&per_page=${perPage}&page=${page}&orderby=date&order=desc${excludeQuery}`
   )
 }
 

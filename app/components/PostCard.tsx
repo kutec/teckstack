@@ -1,4 +1,3 @@
-// components/PostCard.tsx
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,48 +15,90 @@ interface Post {
     date: string;
 }
 
+const FALLBACK_IMAGE = "/images/post-placeholder.jpg"; // add this image
+
 export default function PostCard({ post }: { post: Post }) {
     const title = post?.title?.rendered ?? "Untitled";
     const slug = post?.slug;
-    const excerpt = (post?.excerpt?.rendered ?? post?.content?.rendered ?? "").replace(/<[^>]+>/g, "").slice(0, 120);
+
+    const excerpt = (
+        post?.excerpt?.rendered ??
+        post?.content?.rendered ??
+        ""
+    )
+        .replace(/<[^>]+>/g, "")
+        .slice(0, 140);
 
     const featuredMedia = post?._embedded?.["wp:featuredmedia"]?.[0] ?? null;
-    const imageUrl = featuredMedia?.source_url ?? null;
-    const imageAlt = featuredMedia?.alt_text ?? title;
+    const imageUrl = featuredMedia?.source_url || FALLBACK_IMAGE;
+    const imageAlt = featuredMedia?.alt_text || title;
 
     return (
-        <article className="bg-white shadow-sm rounded-lg overflow-hidden">
-            {imageUrl ? (
-                <div className="h-44 bg-gray-100 overflow-hidden relative">
-                    <Link href={`/posts/${slug}`}
-                        aria-label={title} className="block w-full h-full relative">
-                        <Image
-                            src={imageUrl}
-                            alt={imageAlt || title}
-                            fill
-                            sizes="(max-width: 768px) 100vw, 33vw"
-                            style={{ objectFit: "cover" }}
-                            unoptimized={process.env.NODE_ENV !== "production"} // skip optimization in dev
-                        />
+        <article
+            className="
+        group bg-white rounded-lg overflow-hidden
+        shadow-sm transition-all duration-200
+        md:hover:-translate-y-1 md:hover:shadow-lg
+      "
+        >
+            {/* IMAGE */}
+            <Link
+                href={`/posts/${slug}`}
+                aria-label={title}
+                className="block relative h-44 overflow-hidden bg-gray-100"
+            >
+                <Image
+                    src={imageUrl}
+                    alt={imageAlt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="
+            object-cover transition-transform duration-300
+            md:group-hover:scale-[1.03]
+          "
+                    unoptimized={process.env.NODE_ENV !== "production"}
+                />
+            </Link>
 
-
-                    </Link>
-                </div>
-            ) : null}
-
+            {/* CONTENT */}
             <div className="p-4">
-                <h3 className="text-lg font-semibold">
-                    <Link href={`/posts/${slug}`} dangerouslySetInnerHTML={{ __html: title }} />
+                {/* Date */}
+                <div className="text-xs text-gray-400 mb-1">
+                    {new Date(post.date).toLocaleDateString()}
+                </div>
+
+                {/* Title */}
+                <h3 className="text-lg font-semibold leading-snug">
+                    <Link
+                        href={`/posts/${slug}`}
+                        className="
+              text-gray-900 transition-colors
+              md:group-hover:text-blue-600
+            "
+                        dangerouslySetInnerHTML={{ __html: title }}
+                    />
                 </h3>
 
-                <p className="mt-2 text-sm text-gray-600">{excerpt}…</p>
+                {/* Excerpt */}
+                <p className="mt-2 text-sm text-gray-600 line-clamp-2">
+                    {excerpt}…
+                </p>
 
-                <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
-                    <div>{new Date(post.date).toLocaleDateString()}</div>
-                    <div>
-                        <Link href={`/posts/${slug}`} className="text-blue-600">Read →
-                        </Link>
-                    </div>
+                {/* CTA */}
+                <div className="mt-4">
+                    <Link
+                        href={`/posts/${slug}`}
+                        className="
+              inline-flex items-center text-sm font-medium
+              text-blue-600 transition-all
+              md:group-hover:gap-1
+            "
+                    >
+                        Read
+                        <span className="transition-transform md:group-hover:translate-x-0.5">
+                            →
+                        </span>
+                    </Link>
                 </div>
             </div>
         </article>

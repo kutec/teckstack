@@ -35,15 +35,18 @@ export default async function HomePage() {
       <main>
         <Hero />
 
+        {/* Soft visual separation */}
+        <div className="h-6 bg-white" />
+
         {/* Latest Posts */}
         <LatestPosts
           posts={posts}
           title="Latest posts"
-          viewAllHref="/blog"
+          viewAllHref="/posts"
         />
 
         {/* Featured categories (static for now) */}
-        <section className="bg-gray-50 py-12">
+        <section className="bg-white py-12">
           <div className="max-w-6xl mx-auto px-4">
             <h3 className="text-xl font-semibold mb-4">
               Featured categories
@@ -54,7 +57,7 @@ export default async function HomePage() {
                 <a
                   key={c}
                   href={`/categories/${c.toLowerCase()}`}
-                  className="block bg-white border rounded p-4 text-center hover:shadow"
+                  className="block bg-gray-50 border rounded p-4 text-center hover:shadow-sm transition"
                 >
                   <div className="font-semibold">{c}</div>
                   <div className="text-sm text-gray-500 mt-1">

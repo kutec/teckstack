@@ -69,6 +69,8 @@ export default function PostCard({
     const isFeatured =
         featuredPostId && post?.id && post.id === featuredPostId;
 
+    const date = new Date(post.date);
+
     return (
         <article
             className="relative 
@@ -112,7 +114,7 @@ export default function PostCard({
             <div className="p-4">
                 {/* Meta row */}
                 <div className="flex items-center gap-2 text-xs text-gray-400 mb-1">
-                    <span>{new Date(post.date).toLocaleDateString()}</span>
+                    <span>{date.toISOString().slice(0, 10)}</span>
                     {readingTime ? <span>· {readingTime} min read</span> : null}
                 </div>
 

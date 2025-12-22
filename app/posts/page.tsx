@@ -4,7 +4,7 @@ import Pagination from "@/components/Pagination";
 import { getPostsPaginatedWithMeta, getSiteOptions } from "@/lib/wp";
 
 export default async function PostsPage() {
-    let featuredPostId: number | null = null;
+    let featuredPostId: number | undefined = undefined;
     const { posts, total } = await getPostsPaginatedWithMeta({
         page: 1,
         perPage: 12,

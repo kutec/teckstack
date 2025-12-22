@@ -1,4 +1,3 @@
-// components/Pagination.tsx
 import Link from "next/link";
 
 export default function Pagination({
@@ -23,19 +22,19 @@ export default function Pagination({
 
     return (
         <nav
-            className="flex items-center justify-center gap-6 mt-12 text-sm"
+            className="flex items-center justify-center gap-6 mt-14 text-sm"
             aria-label="Pagination"
         >
             {/* Previous */}
             {prevPage ? (
                 <Link
                     href={prevPage}
-                    className="px-4 py-2 border rounded hover:bg-gray-100"
+                    className="px-4 py-2 border rounded-md text-gray-700 hover:bg-gray-50 transition"
                 >
                     ← Previous
                 </Link>
             ) : (
-                <span className="px-4 py-2 text-gray-400 cursor-not-allowed">
+                <span className="px-4 py-2 text-gray-400">
                     ← Previous
                 </span>
             )}
@@ -49,12 +48,12 @@ export default function Pagination({
             {nextPage ? (
                 <Link
                     href={nextPage}
-                    className="px-4 py-2 border rounded hover:bg-gray-100"
+                    className="px-4 py-2 border rounded-md text-gray-700 hover:bg-gray-50 transition"
                 >
                     Next →
                 </Link>
             ) : (
-                <span className="px-4 py-2 text-gray-400 cursor-not-allowed">
+                <span className="px-4 py-2 text-gray-400">
                     Next →
                 </span>
             )}

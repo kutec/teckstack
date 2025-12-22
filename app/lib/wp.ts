@@ -48,8 +48,7 @@ export async function getLatestPosts (limit = 6, excludeIds: number[] = []) {
 }
 
 /**
- * Paginated posts (used for /posts, /posts/page/2, etc.)
- * SEO-friendly & route-based
+ * Paginated posts (existing, unchanged)
  */
 export async function getPostsPaginated ({
   page = 1,
@@ -66,6 +65,43 @@ export async function getPostsPaginated ({
   return safeFetch(
     `${WP_REST}/posts?_embed&per_page=${perPage}&page=${page}&orderby=date&order=desc${excludeQuery}`
   )
+}
+
+/**
+ * ✅ NEW: Paginated posts WITH total count
+ * Used for posts listing pages (UX: "87 articles published")
+ */
+export async function getPostsPaginatedWithMeta ({
+  page = 1,
+  perPage = 12,
+  excludeIds = []
+}: {
+  page?: number
+  perPage?: number
+  excludeIds?: number[]
+}) {
+  const excludeQuery =
+    excludeIds.length > 0 ? `&exclude=${excludeIds.join(',')}` : ''
+
+  const url = `${WP_REST}/posts?_embed&per_page=${perPage}&page=${page}&orderby=date&order=desc${excludeQuery}`
+
+  const res = await fetch(url, { cache: 'no-store' })
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => '')
+    throw new Error(`WP fetch failed (${res.status}): ${text}`)
+  }
+
+  const posts = await res.json()
+
+  const total = Number(res.headers.get('X-WP-Total') || 0)
+  const totalPages = Number(res.headers.get('X-WP-TotalPages') || 0)
+
+  return {
+    posts,
+    total,
+    totalPages
+  }
 }
 
 export async function getPostById (id: number) {

@@ -1,0 +1,12 @@
+{
+    "extends": [
+        "next/core-web-vitals",
+        "plugin:prettier/recommended"
+    ],
+    "rules": {
+        "react/jsx-max-props-per-line": "off",
+        "react/jsx-first-prop-new-line": "off",
+        "react/jsx-indent": "off",
+        "react/jsx-indent-props": "off"
+    }
+}

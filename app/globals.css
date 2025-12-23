@@ -1,26 +1,141 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+/* @import 'prismjs/themes/prism-tomorrow.css'; */
+/* @import 'prismjs/themes/prism-coldark-dark.css'; */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #ffffff;
+    --foreground: #171717;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Post content overrides */
+.post-content {
+    color: #1f2937; /* gray-800 */
+}
+
+.post-content p {
+    line-height: 1.75;
+}
+
+.post-content pre {
+    position: relative;
+    padding: 1.25rem;
+    overflow-x: auto;
+    font-size: 0.875rem;
+}
+
+.post-content code:not(pre code) {
+    background: #f3f4f6;
+    padding: 0.15rem 0.35rem;
+    border-radius: 4px;
+    font-size: 0.85em;
+}
+
+.post-content blockquote {
+    border-left: 4px solid #3b82f6;
+    padding-left: 1rem;
+    color: #374151;
+    background: #f9fafb;
+}
+
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+    scroll-margin-top: 6rem;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+pre:hover .copy-btn {
+    opacity: 1;
+}
+
+/* -----------------------------
+   WordPress content normalization
+-------------------------------- */
+
+/* ================================
+   Post Content Styling
+================================ */
+
+.post-content {
+    line-height: 1.75;
+}
+
+/* Paragraph spacing */
+.post-content p {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+}
+
+/* Headings */
+.post-content h2 {
+    margin-top: 2.5em;
+    margin-bottom: 0.75em;
+}
+
+.post-content h3 {
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+}
+
+/* Blockquotes */
+.post-content blockquote {
+    border-left: 4px solid #3b82f6;
+    padding-left: 1rem;
+    font-style: italic;
+    color: #374151;
+    background: #f9fafb;
+    padding: 1rem 1.25rem;
+    border-radius: 0.375rem;
+}
+
+/* Images & embeds */
+.post-content figure,
+.post-content img,
+.post-content iframe {
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+    max-width: 100%;
+}
+
+.prose a {
+    color: #2563eb; /* blue-600 */
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 500;
+}
+
+.prose a:hover {
+    color: #1d4ed8; /* blue-700 */
 }

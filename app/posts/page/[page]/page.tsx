@@ -36,7 +36,7 @@ export default async function PostsPaginatedPage({ params }: Props) {
             <Header />
 
             <main className="bg-white">
-                <section className="max-w-6xl mx-auto px-4 py-14">
+                <section className="max-w-7xl mx-auto px-4 py-14">
                     {/* Header */}
                     <div className="mb-10">
                         <h1 className="text-3xl font-bold text-gray-900">

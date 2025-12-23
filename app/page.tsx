@@ -47,7 +47,7 @@ export default async function HomePage() {
 
         {/* Featured categories (static for now) */}
         <section className="bg-white py-12">
-          <div className="max-w-6xl mx-auto px-4">
+          <div className="max-w-7xl mx-auto px-4">
             <h3 className="text-xl font-semibold mb-4">
               Featured categories
             </h3>

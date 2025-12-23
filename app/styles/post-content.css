@@ -1,0 +1,95 @@
+/* Base text */
+.post-content {
+    color: #111827; /* gray-900 */
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* Paragraphs */
+.post-content p {
+    margin: 1.25rem 0;
+}
+
+/* Headings */
+.post-content h2 {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.post-content h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+}
+
+/* Lists */
+.post-content ul,
+.post-content ol {
+    padding-left: 1.5rem;
+    margin: 1.25rem 0;
+}
+
+.post-content li {
+    margin: 0.5rem 0;
+}
+
+/* Blockquotes */
+.post-content blockquote {
+    border-left: 4px solid #2563eb;
+    padding-left: 1rem;
+    color: #374151;
+    font-style: italic;
+    margin: 2rem 0;
+}
+
+/* Images */
+.post-content img {
+    border-radius: 0.5rem;
+    margin: 2rem auto;
+}
+
+/* Twitter / embeds */
+.post-content figure,
+.post-content iframe {
+    margin: 2.5rem auto;
+    max-width: 100%;
+}
+
+/* Code blocks */
+.post-content pre {
+    background: #0f172a; /* slate-900 */
+    color: #e5e7eb;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 2rem 0;
+    font-size: 0.9rem;
+}
+
+.post-content code {
+    background: #f3f4f6;
+    padding: 0.15rem 0.35rem;
+    border-radius: 0.25rem;
+    font-size: 0.9em;
+}
+.post-content pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+}
+
+.post-content .twitter-tweet {
+    margin: 2.5rem auto;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    background: #f9fafb;
+}
+
+.sidebar-card {
+    background: #f9fafb;
+    border: 1px dashed #e5e7eb;
+}

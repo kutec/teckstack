@@ -19,7 +19,7 @@ export default function LatestPosts({
             className="bg-gray-50 py-14 border-t border-gray-200/60"
             aria-busy={isLoading}
         >
-            <div className="max-w-6xl mx-auto px-4">
+            <div className="max-w-7xl mx-auto px-4">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
                     <h2 className="text-2xl font-bold tracking-tight text-gray-900">

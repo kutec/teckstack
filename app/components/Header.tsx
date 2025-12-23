@@ -51,7 +51,7 @@ export default function Header() {
             className={`sticky top-0 z-50 bg-blue-600 text-white transition-all duration-200 ${scrolled ? "py-1 shadow-md" : "py-3"}`}
             aria-label="Site Header"
         >
-            <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
+            <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <Link href="/" className="flex items-center gap-3">
                         <span className="inline-flex items-center justify-center h-8 w-8 rounded bg-white/90 text-blue-600 font-bold">TS</span>

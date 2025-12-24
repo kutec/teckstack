@@ -4,16 +4,9 @@ import { getPostBySlug } from '@/lib/wp';
 import PostBodyClient from '@/components/PostBodyClient';
 import Image from 'next/image';
 import Link from 'next/link';
+import { formatDate } from '@/utils/date';
 
 type Props = { params: Promise<{ slug: string }> };
-
-function formatDate(date: string) {
-    return new Date(date).toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-    });
-}
 
 export default async function PostPage({ params }: Props) {
     const { slug } = await params;
@@ -47,7 +40,7 @@ export default async function PostPage({ params }: Props) {
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-10">
                 {/* Author */}
                 <Link
-                    href="https://www.linkedin.com/in/your-profile"
+                    href="https://www.linkedin.com/in/kushal-jayswal/"
                     target="_blank"
                     className="flex items-center gap-2 group"
                 >
@@ -68,7 +61,7 @@ export default async function PostPage({ params }: Props) {
 
                         {/* Category */}
                         <Link
-                            href={`/category/${primaryCategory.slug}`}
+                            href={`/categories/${primaryCategory.slug}`}
                             className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-medium hover:bg-blue-100"
                         >
                             {/* Placeholder for future icon */}

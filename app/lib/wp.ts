@@ -1,35 +1,32 @@
 // lib/wp.ts
 
-const WP_BASE =
-  process.env.WP_API_BASE ||
-  process.env.NEXT_PUBLIC_WP_API_BASE ||
-  'http://teckstack.local'
+const WP_BASE = process.env.WP_API_BASE || process.env.NEXT_PUBLIC_WP_API_BASE || 'http://teckstack.local';
 
-const BASE = WP_BASE.replace(/\/$/, '')
+const BASE = WP_BASE.replace(/\/$/, '');
 
-export const WP_REST = `${BASE}/wp-json/wp/v2`
-export const TS_OPTIONS_URL = `${BASE}/wp-json/teckstack/v1/options`
-export const TS_SUBSCRIBE_URL = `${BASE}/wp-json/teckstack/v1/subscribe`
+export const WP_REST = `${BASE}/wp-json/wp/v2`;
+export const TS_OPTIONS_URL = `${BASE}/wp-json/teckstack/v1/options`;
+export const TS_SUBSCRIBE_URL = `${BASE}/wp-json/teckstack/v1/subscribe`;
 
 async function safeFetch (url: string) {
-  if (!url.startsWith('http')) {
-    throw new Error(`Invalid WP URL (relative): ${url}`)
-  }
+    if (!url.startsWith('http')) {
+        throw new Error(`Invalid WP URL (relative): ${url}`);
+    }
 
-  const res = await fetch(url, { cache: 'no-store' })
+    const res = await fetch(url, { cache: 'no-store' });
 
-  if (!res.ok) {
-    const text = await res.text().catch(() => '')
-    throw new Error(`WP fetch failed (${res.status}): ${text}`)
-  }
+    if (!res.ok) {
+        const text = await res.text().catch(() => '');
+        throw new Error(`WP fetch failed (${res.status}): ${text}`);
+    }
 
-  return res.json()
+    return res.json();
 }
 
 /* ---------------- OPTIONS ---------------- */
 
 export async function getSiteOptions () {
-  return safeFetch(TS_OPTIONS_URL)
+    return safeFetch(TS_OPTIONS_URL);
 }
 
 /* ---------------- POSTS ---------------- */
@@ -39,32 +36,26 @@ export async function getSiteOptions () {
  * Not paginated
  */
 export async function getLatestPosts (limit = 6, excludeIds: number[] = []) {
-  const excludeQuery =
-    excludeIds.length > 0 ? `&exclude=${excludeIds.join(',')}` : ''
+    const excludeQuery = excludeIds.length > 0 ? `&exclude=${excludeIds.join(',')}` : '';
 
-  return safeFetch(
-    `${WP_REST}/posts?_embed&per_page=${limit}&orderby=date&order=desc${excludeQuery}`
-  )
+    return safeFetch(`${WP_REST}/posts?_embed&per_page=${limit}&orderby=date&order=desc${excludeQuery}`);
 }
 
 /**
  * Paginated posts (existing, unchanged)
  */
 export async function getPostsPaginated ({
-  page = 1,
-  perPage = 12,
-  excludeIds = []
+    page = 1,
+    perPage = 12,
+    excludeIds = [],
 }: {
-  page?: number
-  perPage?: number
-  excludeIds?: number[]
+    page?: number;
+    perPage?: number;
+    excludeIds?: number[];
 }) {
-  const excludeQuery =
-    excludeIds.length > 0 ? `&exclude=${excludeIds.join(',')}` : ''
+    const excludeQuery = excludeIds.length > 0 ? `&exclude=${excludeIds.join(',')}` : '';
 
-  return safeFetch(
-    `${WP_REST}/posts?_embed&per_page=${perPage}&page=${page}&orderby=date&order=desc${excludeQuery}`
-  )
+    return safeFetch(`${WP_REST}/posts?_embed&per_page=${perPage}&page=${page}&orderby=date&order=desc${excludeQuery}`);
 }
 
 /**
@@ -72,60 +63,96 @@ export async function getPostsPaginated ({
  * Used for posts listing pages (UX: "87 articles published")
  */
 export async function getPostsPaginatedWithMeta ({
-  page = 1,
-  perPage = 12,
-  excludeIds = []
+    page = 1,
+    perPage = 12,
+    excludeIds = [],
 }: {
-  page?: number
-  perPage?: number
-  excludeIds?: number[]
+    page?: number;
+    perPage?: number;
+    excludeIds?: number[];
 }) {
-  const excludeQuery =
-    excludeIds.length > 0 ? `&exclude=${excludeIds.join(',')}` : ''
+    const excludeQuery = excludeIds.length > 0 ? `&exclude=${excludeIds.join(',')}` : '';
 
-  const url = `${WP_REST}/posts?_embed&per_page=${perPage}&page=${page}&orderby=date&order=desc${excludeQuery}`
+    const url = `${WP_REST}/posts?_embed&per_page=${perPage}&page=${page}&orderby=date&order=desc${excludeQuery}`;
 
-  const res = await fetch(url, { cache: 'no-store' })
+    const res = await fetch(url, { cache: 'no-store' });
 
-  if (!res.ok) {
-    const text = await res.text().catch(() => '')
-    throw new Error(`WP fetch failed (${res.status}): ${text}`)
-  }
+    if (!res.ok) {
+        const text = await res.text().catch(() => '');
+        throw new Error(`WP fetch failed (${res.status}): ${text}`);
+    }
 
-  const posts = await res.json()
+    const posts = await res.json();
 
-  const total = Number(res.headers.get('X-WP-Total') || 0)
-  const totalPages = Number(res.headers.get('X-WP-TotalPages') || 0)
+    const total = Number(res.headers.get('X-WP-Total') || 0);
+    const totalPages = Number(res.headers.get('X-WP-TotalPages') || 0);
 
-  return {
-    posts,
-    total,
-    totalPages
-  }
+    return {
+        posts,
+        total,
+        totalPages,
+    };
 }
 
 export async function getPostById (id: number) {
-  return safeFetch(`${WP_REST}/posts/${id}?_embed`)
+    return safeFetch(`${WP_REST}/posts/${id}?_embed`);
 }
 
 export async function getPostBySlug (slug: string) {
-  const arr = await safeFetch(
-    `${WP_REST}/posts?slug=${encodeURIComponent(slug)}&_embed`
-  )
-  return arr?.[0] ?? null
+    const arr = await safeFetch(`${WP_REST}/posts?slug=${encodeURIComponent(slug)}&_embed`);
+    return arr?.[0] ?? null;
 }
 
 /* ---------------- GUIDES (CPT) ---------------- */
 
 export async function getGuideBySlug (slug: string) {
-  const arr = await safeFetch(
-    `${WP_REST}/guides?slug=${encodeURIComponent(slug)}&_embed`
-  )
-  return arr?.[0] ?? null
+    const arr = await safeFetch(`${WP_REST}/guides?slug=${encodeURIComponent(slug)}&_embed`);
+    return arr?.[0] ?? null;
 }
 
 export async function getGuides (limit = 10) {
-  return safeFetch(
-    `${WP_REST}/guides?_embed&per_page=${limit}&orderby=date&order=desc`
-  )
+    return safeFetch(`${WP_REST}/guides?_embed&per_page=${limit}&orderby=date&order=desc`);
+}
+
+/* ---------------- CATEGORIES ---------------- */
+
+export async function getAllCategories () {
+    const res = await fetch(`${WP_REST}/categories?per_page=100&hide_empty=true`, { cache: 'no-store' });
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch categories');
+    }
+
+    return res.json();
+}
+
+export async function getCategoryBySlug (slug: string) {
+    const res = await fetch(`${WP_REST}/categories?slug=${encodeURIComponent(slug)}`);
+    const data = await res.json();
+    return data?.[0] ?? null;
+}
+
+export async function getPostsByCategory ({
+    categoryId,
+    page = 1,
+    perPage = 12,
+}: {
+    categoryId: number;
+    page?: number;
+    perPage?: number;
+}) {
+    const res = await fetch(
+        `${WP_REST}/posts?_embed&categories=${categoryId}&page=${page}&per_page=${perPage}&orderby=date&order=desc`,
+        { cache: 'no-store' }
+    );
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch category posts');
+    }
+
+    return {
+        posts: await res.json(),
+        total: Number(res.headers.get('X-WP-Total') || 0),
+        totalPages: Number(res.headers.get('X-WP-TotalPages') || 0),
+    };
 }

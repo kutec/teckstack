@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function Pagination({
     currentPage,
@@ -9,34 +9,19 @@ export default function Pagination({
     basePath: string;
     hasNext?: boolean;
 }) {
-    const prevPage =
-        currentPage > 1
-            ? currentPage === 2
-                ? basePath
-                : `${basePath}/page/${currentPage - 1}`
-            : null;
+    const prevPage = currentPage > 1 ? (currentPage === 2 ? basePath : `${basePath}/page/${currentPage - 1}`) : null;
 
-    const nextPage = hasNext
-        ? `${basePath}/page/${currentPage + 1}`
-        : null;
+    const nextPage = hasNext ? `${basePath}/page/${currentPage + 1}` : null;
 
     return (
-        <nav
-            className="flex items-center justify-center gap-6 mt-14 text-sm"
-            aria-label="Pagination"
-        >
+        <nav className="flex items-center justify-center gap-6 mt-14 text-sm" aria-label="Pagination">
             {/* Previous */}
             {prevPage ? (
-                <Link
-                    href={prevPage}
-                    className="px-4 py-2 border rounded-md text-gray-700 hover:bg-gray-50 transition"
-                >
+                <Link href={prevPage} className="px-4 py-2 border rounded-md text-gray-700 hover:bg-gray-50 transition">
                     ← Previous
                 </Link>
             ) : (
-                <span className="px-4 py-2 text-gray-400">
-                    ← Previous
-                </span>
+                <span className="px-4 py-2 text-gray-400">← Previous</span>
             )}
 
             {/* Page indicator */}
@@ -46,16 +31,11 @@ export default function Pagination({
 
             {/* Next */}
             {nextPage ? (
-                <Link
-                    href={nextPage}
-                    className="px-4 py-2 border rounded-md text-gray-700 hover:bg-gray-50 transition"
-                >
+                <Link href={nextPage} className="px-4 py-2 border rounded-md text-gray-700 hover:bg-gray-50 transition">
                     Next →
                 </Link>
             ) : (
-                <span className="px-4 py-2 text-gray-400">
-                    Next →
-                </span>
+                <span className="px-4 py-2 text-gray-400">Next →</span>
             )}
         </nav>
     );

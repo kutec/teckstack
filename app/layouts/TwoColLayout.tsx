@@ -1,7 +1,7 @@
-// components/TwoColumnLayout.tsx
+// components/TwoColLayout.tsx
 import React from "react";
 
-export default function TwoColumnLayout({
+export default function TwoColLayout({
     children,
     sidebar,
 }: {

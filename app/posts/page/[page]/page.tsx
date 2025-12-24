@@ -1,8 +1,7 @@
-import Header from "@/components/Header";
-import PostCard from "@/components/PostCard";
-import Pagination from "@/components/Pagination";
-import { getPostsPaginatedWithMeta } from "@/lib/wp";
-import { notFound } from "next/navigation";
+import PostCard from '@/components/PostCard';
+import Pagination from '@/components/Pagination';
+import { getPostsPaginatedWithMeta } from '@/lib/wp';
+import { notFound } from 'next/navigation';
 
 type Props = {
     params: { page: string };
@@ -33,20 +32,14 @@ export default async function PostsPaginatedPage({ params }: Props) {
 
     return (
         <>
-            <Header />
-
             <main className="bg-white">
                 <section className="max-w-7xl mx-auto px-4 py-14">
                     {/* Header */}
                     <div className="mb-10">
-                        <h1 className="text-3xl font-bold text-gray-900">
-                            All Posts
-                        </h1>
+                        <h1 className="text-3xl font-bold text-gray-900">All Posts</h1>
 
                         <p className="mt-2 text-sm text-gray-600">
-                            {total > 0
-                                ? `${total} articles published · Page ${pageNum}`
-                                : `Page ${pageNum}`}
+                            {total > 0 ? `${total} articles published · Page ${pageNum}` : `Page ${pageNum}`}
                         </p>
                     </div>
 
@@ -58,11 +51,7 @@ export default async function PostsPaginatedPage({ params }: Props) {
                     </div>
 
                     {/* Pagination */}
-                    <Pagination
-                        currentPage={pageNum}
-                        basePath="/posts"
-                        hasNext={posts.length === 12}
-                    />
+                    <Pagination currentPage={pageNum} basePath="/posts" hasNext={posts.length === 12} />
                 </section>
             </main>
         </>

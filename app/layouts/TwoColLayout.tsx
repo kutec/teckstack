@@ -4,7 +4,7 @@ import React from 'react';
 export default function TwoColLayout({ children, sidebar }: { children: React.ReactNode; sidebar?: React.ReactNode }) {
     return (
         <div className="bg-white">
-            <div className="max-w-7xl mx-auto px-4 py-12">
+            <div className="max-w-7xl mx-auto px-4 py-14">
                 <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_280px] gap-10">
                     {/* Main content */}
                     <article className="min-w-0">{children}</article>

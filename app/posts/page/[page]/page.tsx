@@ -39,7 +39,8 @@ export default async function PostsPaginatedPage({ params }: Props) {
                         <h1 className="text-3xl font-bold text-gray-900">All Posts</h1>
 
                         <p className="mt-2 text-sm text-gray-600">
-                            {total > 0 ? `${total} articles published · Page ${pageNum}` : `Page ${pageNum}`}
+                            {/* {total > 0 ? `${total} articles published · Page ${pageNum}` : `Page ${pageNum}`} */}
+                            Total <strong>{total}</strong> articles published · <em>Page {`${pageNum}`}</em>
                         </p>
                     </div>
 

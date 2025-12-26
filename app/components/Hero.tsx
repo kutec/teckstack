@@ -1,12 +1,15 @@
 // app/components/Hero.tsx
-import Link from "next/link";
-import HeroRight from "./HeroRight";
-import { getSiteOptions } from "@/lib/wp";
+import Link from 'next/link';
+import HeroRight from './HeroRight';
+import { getSiteOptions } from '@/lib/wp';
 
 // utility to strip simple HTML tags from WP fields
 function stripHtml(html?: string | null) {
-    if (!html) return "";
-    return html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+    if (!html) return '';
+    return html
+        .replace(/<[^>]*>/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
 }
 
 type PostLite = {
@@ -48,21 +51,18 @@ export default async function Hero() {
             };
         }
     } catch (err) {
-        console.error("Hero data load failed:", err);
+        console.error('Hero data load failed:', err);
     }
 
-    const title =
-        opts?.hero_title ||
-        "Smarter <span class='text-blue-600'>Tech Learning</span>";
+    const title = opts?.hero_title || "Smarter <span class='text-blue-600'>Tech Learning</span>";
 
     const subtitle =
         opts?.hero_subtitle ||
-        "Practical guides, React patterns, and debugging notes based on real experience — deep dives without the fluff.";
+        'Practical guides, React patterns, and debugging notes based on real experience — deep dives without the fluff.';
 
-    const ctaLabel = opts?.hero_cta_label || "Start Here";
-    const ctaUrl = opts?.hero_cta_url || "/start-here";
-    const newsletterText =
-        opts?.newsletter_text || "No spam. Unsubscribe anytime.";
+    const ctaLabel = opts?.hero_cta_label || 'Start Here';
+    const ctaUrl = opts?.hero_cta_url || '/start-here';
+    const newsletterText = opts?.newsletter_text || 'No spam. Unsubscribe anytime.';
 
     return (
         <section className="bg-white">
@@ -99,11 +99,7 @@ export default async function Hero() {
 
                 {/* RIGHT */}
                 <div className="md:col-span-5">
-                    <HeroRight
-                        featured={featuredPost}
-                        guide={guidePost}
-                        newsletterText={newsletterText}
-                    />
+                    <HeroRight featured={featuredPost} guide={guidePost} newsletterText={newsletterText} />
                 </div>
             </div>
         </section>

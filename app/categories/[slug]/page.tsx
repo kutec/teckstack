@@ -26,11 +26,16 @@ export default async function CategoryPage({ params }: Props) {
         <TwoColLayout sidebar={<PostSidebar />}>
             {/* Header */}
             <div className="mb-10">
-                <h1 className="text-3xl font-bold text-gray-900">{category.name}</h1>
-
+                <h1 className="text-3xl font-bold text-gray-900 d-flex items-center">
+                    <strong
+                        aria-hidden="true"
+                        className="align-middle text-4xl text-shadow-blue-600 text-blue-50 text-shadow-lg px-3 rounded-4xl mr-4 shadow-lg bg-blue-600/10"
+                    >
+                        {total}
+                    </strong>
+                    <span className="align-middle">{category.name}</span>
+                </h1>
                 {category.description && <p className="mt-2 text-gray-600 max-w-2xl">{category.description}</p>}
-
-                <p className="mt-1 text-sm text-gray-500">{total} articles</p>
             </div>
 
             {/* Grid */}

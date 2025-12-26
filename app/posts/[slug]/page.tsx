@@ -44,7 +44,7 @@ export default async function PostPage({ params }: Props) {
                     target="_blank"
                     className="flex items-center gap-2 group"
                 >
-                    <span className="relative w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-semibold text-sm transition-transform group-hover:scale-105">
+                    <span className="relative w-8 h-8 rounded-full from-blue-500 to-indigo-600 text-white flex items-center justify-center font-semibold text-sm transition-transform group-hover:scale-105">
                         K
                     </span>
                     <span className="font-medium text-gray-900 group-hover:underline">Kushal Jayswal</span>

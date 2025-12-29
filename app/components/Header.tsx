@@ -55,10 +55,10 @@ export default function Header() {
             <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="inline-flex items-center justify-center rounded rounded-bl-2xl text-blue-600 font-bold">
-                            <Image src="/teckstack-2025-logo.png" alt="TeckStack Logo" width={48} height={48} />
+                        <span className="inline-flex items-center justify-center rounded rounded-bl-2xl text-blue-600 font-bold w-9 h-9 shadow-lg">
+                            <Image src="/teckstack-2025-logo.png" alt="TeckStack Logo" width={64} height={64} />
                         </span>
-                        <span className="font-semibold text-lg">TeckStack</span>
+                        <span className="font-semibold text-xl">TeckStack</span>
                     </Link>
 
                     {/* keyboard-first SkipLink (renders only after Tab) */}
@@ -82,12 +82,6 @@ export default function Header() {
                                         >
                                             {item.label}
                                         </Link>
-
-                                        {/* centered animated underline (stays under the label regardless of header height) */}
-                                        <span
-                                            className={`absolute left-1/2 transform -translate-x-1/2 -bottom-6.5 h-3 bg-white transition-all ${isActive ? 'w-8' : 'w-0'}`}
-                                            aria-hidden
-                                        />
                                     </li>
                                 );
                             })}

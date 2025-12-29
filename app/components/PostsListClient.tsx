@@ -3,14 +3,18 @@
 import PostCard from '@/components/PostCard';
 import Pagination from '@/components/Pagination';
 
-export default function PostsClient({
+export default function PostsListClient({
     initialPosts,
     total,
     featuredPostId,
+    basePath,
+    title,
 }: {
     initialPosts: any[];
     total: number;
     featuredPostId?: number;
+    basePath: 'posts' | 'guides';
+    title: string;
 }) {
     return (
         <main className="bg-white">
@@ -20,23 +24,28 @@ export default function PostsClient({
                     <h1 className="text-3xl font-bold text-gray-900">
                         <strong
                             aria-hidden="true"
-                            className="align-middle text-4xl text-shadow-blue-600 text-blue-50 text-shadow-lg px-3 rounded-4xl mr-4 shadow-lg bg-blue-600/10"
+                            className="align-middle text-4xl text-blue-600 px-3 rounded-xl mr-4 bg-blue-600/10 border border-blue-600/20"
                         >
                             {total}
                         </strong>
-                        <span className="align-middle">All Posts</span>
+                        <span className="align-middle">{title}</span>
                     </h1>
                 </div>
 
                 {/* Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {initialPosts.map((post) => (
-                        <PostCard key={post.id} post={post} featuredPostId={featuredPostId} />
+                        <PostCard
+                            key={post.id}
+                            post={post}
+                            featuredPostId={featuredPostId}
+                            basePath={basePath} // ✅ FIX
+                        />
                     ))}
                 </div>
 
-                {/* Pagination only when NOT searching */}
-                <Pagination currentPage={1} basePath="/posts" hasNext={initialPosts.length === 12} />
+                {/* Pagination */}
+                <Pagination currentPage={1} basePath={basePath} hasNext={initialPosts.length === 12} />
             </section>
         </main>
     );

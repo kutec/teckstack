@@ -35,9 +35,18 @@ function getReadingTime(html?: string) {
     return Math.max(1, Math.ceil(words / 200));
 }
 
-export default function PostCard({ post, featuredPostId }: { post: Post; featuredPostId?: number }) {
+export default function PostCard({
+    post,
+    featuredPostId,
+    basePath = 'posts',
+}: {
+    post: Post;
+    featuredPostId?: number;
+    basePath?: 'posts' | 'guides';
+}) {
     const title = post?.title?.rendered ?? 'Untitled';
     const slug = post?.slug;
+    const href = `/${basePath}/${slug}`;
 
     const excerpt = (post?.excerpt?.rendered ?? post?.content?.rendered ?? '').replace(/<[^>]+>/g, '').slice(0, 140);
 
@@ -65,11 +74,7 @@ export default function PostCard({ post, featuredPostId }: { post: Post; feature
       "
         >
             {/* IMAGE */}
-            <Link
-                href={`/posts/${slug}`}
-                aria-label={title}
-                className="relative block h-44 overflow-hidden bg-gray-100"
-            >
+            <Link href={href} aria-label={title} className="relative block h-44 overflow-hidden bg-gray-100">
                 <Image
                     src={imageUrl}
                     alt={imageAlt}

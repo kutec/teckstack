@@ -45,7 +45,12 @@ export default async function PostPage({ params }: Props) {
                     className="flex items-center gap-2 group"
                 >
                     <span className="relative w-8 h-8 rounded-full from-blue-500 to-indigo-600 text-white flex items-center justify-center font-semibold text-sm transition-transform group-hover:scale-105">
-                        K
+                        <Image
+                            src="https://gravatar.com/userimage/11516795/78fa83d78e270e3ae94b29410d73ce67.jpeg?size=64"
+                            alt="Kushal Jayswal"
+                            fill
+                            className="rounded-full object-cover"
+                        />
                     </span>
                     <span className="font-medium text-gray-900 group-hover:underline">Kushal Jayswal</span>
                 </Link>

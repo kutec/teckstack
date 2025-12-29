@@ -36,12 +36,20 @@ export default async function PostsPaginatedPage({ params }: Props) {
                 <section className="max-w-7xl mx-auto px-4 py-14">
                     {/* Header */}
                     <div className="mb-10">
-                        <h1 className="text-3xl font-bold text-gray-900">All Posts</h1>
-
-                        <p className="mt-2 text-sm text-gray-600">
-                            {/* {total > 0 ? `${total} articles published · Page ${pageNum}` : `Page ${pageNum}`} */}
-                            Total <strong>{total}</strong> articles published · <em>Page {`${pageNum}`}</em>
-                        </p>
+                        <h1 className="text-3xl font-bold text-gray-900">
+                            <strong
+                                aria-hidden="true"
+                                className="align-middle text-4xl text-blue-600 text-shadow-lg px-3 rounded-xl mr-4 bg-blue-600/10 border border-blue-600/20"
+                            >
+                                {total}
+                            </strong>
+                            <span className="align-middle">
+                                All Posts ·{' '}
+                                <small>
+                                    <em>Page {pageNum}</em>
+                                </small>
+                            </span>
+                        </h1>
                     </div>
 
                     {/* Grid */}

@@ -54,7 +54,9 @@ export default async function Hero() {
         console.error('Hero data load failed:', err);
     }
 
-    const title = opts?.hero_title || "Smarter <span class='text-blue-600'>Tech Learning</span>";
+    const title =
+        opts?.hero_title ||
+        "Smarter <span class='text-blue-600'>Frontend Learning</span></br>for <em>Modern Developers</em>";
 
     const subtitle =
         opts?.hero_subtitle ||

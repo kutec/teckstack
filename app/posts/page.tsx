@@ -14,7 +14,13 @@ export default async function PostsPage() {
 
     return (
         <>
-            <PostsListClient initialPosts={posts} total={total} featuredPostId={featuredPostId} />
+            <PostsListClient
+                initialPosts={posts}
+                total={total}
+                featuredPostId={featuredPostId}
+                basePath="posts"
+                title="All Posts"
+            />
         </>
     );
 }

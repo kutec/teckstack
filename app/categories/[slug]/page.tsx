@@ -29,7 +29,7 @@ export default async function CategoryPage({ params }: Props) {
                 <h1 className="text-3xl font-bold text-gray-900 d-flex items-center">
                     <strong
                         aria-hidden="true"
-                        className="align-middle text-4xl text-shadow-blue-600 text-blue-50 text-shadow-lg px-3 rounded-4xl mr-4 shadow-lg bg-blue-600/10"
+                        className="align-middle text-4xl text-blue-600 text-shadow-lg px-3 rounded-xl mr-4 bg-blue-600/10 border border-blue-600/20"
                     >
                         {total}
                     </strong>

@@ -38,7 +38,7 @@ export default async function GuidePage({ params }: Props) {
 
             {/* Content */}
             <article
-                className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-800"
+                className="max-w-full lg:max-w-3xl bg-white rounded-xl p-0 lg:p-7"
                 dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
         </TwoColLayout>

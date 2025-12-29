@@ -1,0 +1,88 @@
+// Define variables for the base size and the amount to scale by
+$base-font-size: 1rem; // or 16px, etc.
+$heading-scale: 0.5rem; // Amount each heading level decreases by from h1 to h6
+
+@mixin generate-headings($base-size: 3.5rem, $step: 0.5rem) {
+    @for $i from 1 through 6 {
+        h#{$i} {
+            // Calculation: starts at base-size for h1, subtracts step for each level
+            font-size: $base-size - ($step * ($i - 1));
+        }
+    }
+}
+
+// Usage
+@include generate-headings(2.5rem, .6rem);
+
+//    Base Typography Styles
+$line-height: 1.6;
+$link-color: #3b82f6;
+
+/* Tailwind's blue-500 */
+body {
+    font-size: $base-font-size;
+    line-height: $line-height;
+    color: #111827;
+    /* Tailwind's gray-900 */
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+}
+
+/*-- Headings --*/
+// h1 {
+//     font-size: 2.5rem;
+// }
+
+// h2 {
+//     font-size: 2rem;
+// }
+
+// h3 {
+//     font-size: 1.5rem;
+// }
+
+// h4 {
+//     font-size: 1.25rem;
+// }
+
+// h5 {
+//     font-size: 1rem;
+// }
+
+// h6 {
+//     font-size: 0.875rem;
+// }
+
+/*-- Paragraphs and Links --*/
+p {
+    margin-bottom: 1em;
+    /* Space between paragraphs, don't use both indents and space */
+}
+
+
+/*-- Blockquotes --*/
+blockquote {
+    border-left: 4px solid $link-color;
+    padding-left: 1em;
+    margin: 1.5em 0;
+    font-style: italic;
+}
+
+/*-- Accessibility & Responsiveness --*/
+/* Ensure text can be zoomed up to 200% without issue */
+@media (max-width: 768px) {
+    body {
+        font-size: 1rem;
+        /* Base size for mobile */
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    /* other responsive adjustments */
+}

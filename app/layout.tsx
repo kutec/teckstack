@@ -1,6 +1,6 @@
 // app/layout.tsx
 import SkipLink from '@/components/SkipLink';
-import './globals.css';
+import './globals.scss';
 import '@/styles/post-content.css';
 import '@/styles/prism.css';
 import Header from '@/components/Header';

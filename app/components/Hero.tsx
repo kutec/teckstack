@@ -68,7 +68,7 @@ export default async function Hero() {
 
     return (
         <section className="bg-white">
-            <div className="max-w-7xl mx-auto px-4 py-10 md:py-14 grid grid-cols-1 md:grid-cols-12 md:items-center gap-8">
+            <div className="max-w-7xl mx-auto px-4 py-6 md:py-12 grid grid-cols-1 md:grid-cols-12 md:items-center gap-8">
                 {/* LEFT */}
                 <div className="md:col-span-7">
                     <h1

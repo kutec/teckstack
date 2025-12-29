@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import SkipLink from '@/components/SkipLink';
 import GlobalSearch from '@/components/GlobalSearch';
+import Image from 'next/image';
 
 const NAV = [
     { href: '/', label: 'Home' },
@@ -54,8 +55,8 @@ export default function Header() {
             <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="inline-flex items-center justify-center h-8 w-8 rounded bg-white/90 text-blue-600 font-bold">
-                            TS
+                        <span className="inline-flex items-center justify-center rounded rounded-bl-2xl text-blue-600 font-bold">
+                            <Image src="/teckstack-2025-logo.png" alt="TeckStack Logo" width={48} height={48} />
                         </span>
                         <span className="font-semibold text-lg">TeckStack</span>
                     </Link>
@@ -84,7 +85,7 @@ export default function Header() {
 
                                         {/* centered animated underline (stays under the label regardless of header height) */}
                                         <span
-                                            className={`absolute left-1/2 transform -translate-x-1/2 bottom-2.5 h-0.5 bg-white transition-all ${isActive ? 'w-8' : 'w-0'}`}
+                                            className={`absolute left-1/2 transform -translate-x-1/2 -bottom-6.5 h-3 bg-white transition-all ${isActive ? 'w-8' : 'w-0'}`}
                                             aria-hidden
                                         />
                                     </li>

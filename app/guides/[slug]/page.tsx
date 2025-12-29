@@ -3,6 +3,7 @@ import PostSidebar from '@/components/PostSidebar';
 import { getGuideBySlug } from '@/lib/wp';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
+import PostBodyClient from '@/components/PostBodyClient';
 
 type Props = {
     params: Promise<{ slug: string }>;
@@ -37,10 +38,7 @@ export default async function GuidePage({ params }: Props) {
             )}
 
             {/* Content */}
-            <article
-                className="max-w-full lg:max-w-3xl bg-white rounded-xl p-0 lg:p-7"
-                dangerouslySetInnerHTML={{ __html: contentHtml }}
-            />
+            <PostBodyClient html={contentHtml} />
         </TwoColLayout>
     );
 }

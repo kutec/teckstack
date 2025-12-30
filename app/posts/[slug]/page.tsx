@@ -34,10 +34,10 @@ export default async function PostPage({ params }: Props) {
     return (
         <TwoColLayout sidebar={<PostSidebar />}>
             {/* Title */}
-            <h1 className="text-4xl font-extrabold text-gray-900 mb-4" dangerouslySetInnerHTML={{ __html: title }} />
+            <h1 className="text-4xl font-extrabold text-gray-900 mb-6" dangerouslySetInnerHTML={{ __html: title }} />
 
             {/* Meta row */}
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-10">
+            <div className="post-meta flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-10">
                 {/* Author */}
                 <Link
                     href="https://www.linkedin.com/in/kushal-jayswal/"
@@ -78,7 +78,7 @@ export default async function PostPage({ params }: Props) {
             </div>
 
             <div className="bg-white">
-                <article className="max-w-full lg:max-w-3xl bg-white rounded-xl p-0 lg:p-7">
+                <article className="max-w-full lg:max-w-3xl rounded-xl p-0 lg:p-7">
                     {/* Featured image */}
                     {featuredImage && (
                         <div className="mb-10">

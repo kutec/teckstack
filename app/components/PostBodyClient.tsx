@@ -88,7 +88,6 @@ export default function PostBodyClient({ html }: Props) {
         <div
             ref={ref}
             className="
-        post-content
         prose prose-lg max-w-none
         prose-headings:text-gray-900
         prose-p:text-gray-800

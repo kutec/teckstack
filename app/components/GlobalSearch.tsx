@@ -101,7 +101,7 @@ export default function GlobalSearch() {
                 ref={inputRef}
                 type="search"
                 value={query}
-                placeholder="Search posts & guides…"
+                placeholder="React, JavaScript, CSS..."
                 onFocus={() => setOpen(true)}
                 onChange={(e) => setQuery(e.target.value)}
                 className="

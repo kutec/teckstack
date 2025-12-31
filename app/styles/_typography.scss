@@ -10,12 +10,15 @@ $heading-scale: 0.5rem; // Amount each heading level decreases by from h1 to h6
             font-size: $base-size - ($step * ($i - 1));
 
 
-            +*:not(.post-meta) {
-                margin-top: $base-size + ($step - 1.5rem);
-            }
+            // +*:not(.post-meta) {
+            //     margin-top: $base-size + ($step - 1.5rem);
+            // }
 
-            p+& {
-                margin-top: $base-size + ($step + 0.5rem);
+            // p+& {
+            //     margin-top: $base-size + ($step + 0.5rem);
+            // }
+            *+& {
+                margin-top: $base-size - ($step * ($i - 2.5)) !important;
             }
         }
     }
@@ -39,7 +42,70 @@ body {
 }
 
 /*-- Paragraphs and Links --*/
-p {
-    margin-bottom: 1em;
-    /* Space between paragraphs, don't use both indents and space */
+
+
+#main {
+    .post-single-page {
+        a {
+            color: $link-color;
+
+            &:hover {
+                text-decoration: underline;
+                color: darken($link-color, 10%);
+
+            }
+        }
+
+        *+* {
+            margin-top: 1.25rem;
+        }
+
+        .wp-block-list {
+            list-style-type: circle;
+            padding-left: 2.5rem;
+
+            li {
+                margin-top: 0.5rem;
+
+                &:hover {
+                    list-style: disc;
+                }
+            }
+        }
+
+        blockquote {
+            border-left: 4px solid #d1d5db;
+            /* Tailwind's gray-300 */
+            padding: 1rem;
+            color: #6b7280;
+            /* Tailwind's gray-500 */
+            font-style: italic;
+        }
+
+        .wp-block-group {
+            background-color: #fffbeb;
+            border-radius: 0.50rem;
+            padding: .25rem .75rem;
+            border: 1px solid #fbbf24;
+            font-size: .85rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .25);
+            color: #78350f;
+
+            *+* {
+                margin-top: .5rem;
+            }
+
+            p:first-child {
+                margin-bottom: .75rem;
+                margin-left: -0.75rem;
+                font-size: $base-font-size;
+                border-left: 5px solid #fbbf24;
+                padding-left: calc(.75rem - 5px);
+                font-weight: 600;
+                color: #92400e;
+                border-radius: .5rem 0 0 0;
+                margin-top: -.25rem;
+            }
+        }
+    }
 }

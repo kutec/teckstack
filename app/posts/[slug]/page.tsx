@@ -34,53 +34,58 @@ export default async function PostPage({ params }: Props) {
     return (
         <TwoColLayout sidebar={<PostSidebar />}>
             {/* Title */}
-            <h1 className="text-4xl font-extrabold text-gray-900 mb-6" dangerouslySetInnerHTML={{ __html: title }} />
+            <header className="post-header">
+                <h1
+                    className="text-4xl font-extrabold text-gray-900 mb-6"
+                    dangerouslySetInnerHTML={{ __html: title }}
+                />
 
-            {/* Meta row */}
-            <div className="post-meta flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-10">
-                {/* Author */}
-                <Link
-                    href="https://www.linkedin.com/in/kushal-jayswal/"
-                    target="_blank"
-                    className="flex items-center gap-2 group"
-                >
-                    <span className="relative w-8 h-8 rounded-full from-blue-500 to-indigo-600 text-white flex items-center justify-center font-semibold text-sm transition-transform group-hover:scale-105">
-                        <Image
-                            src="https://gravatar.com/userimage/11516795/78fa83d78e270e3ae94b29410d73ce67.jpeg?size=64"
-                            alt="Kushal Jayswal"
-                            fill
-                            className="rounded-full object-cover"
-                        />
-                    </span>
-                    <span className="font-medium text-gray-900 group-hover:underline">Kushal Jayswal</span>
-                </Link>
+                {/* Meta row */}
+                <div className="post-meta flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-10">
+                    {/* Author */}
+                    <Link
+                        href="https://www.linkedin.com/in/kushal-jayswal/"
+                        target="_blank"
+                        className="flex items-center gap-2 group"
+                    >
+                        <span className="relative w-8 h-8 rounded-full from-blue-500 to-indigo-600 text-white flex items-center justify-center font-semibold text-sm transition-transform group-hover:scale-105">
+                            <Image
+                                src="https://gravatar.com/userimage/11516795/78fa83d78e270e3ae94b29410d73ce67.jpeg?size=64"
+                                alt="Kushal Jayswal"
+                                fill
+                                className="rounded-full object-cover"
+                            />
+                        </span>
+                        <span className="font-medium text-gray-900 group-hover:underline">Kushal Jayswal</span>
+                    </Link>
 
-                <span className="text-gray-400">•</span>
+                    <span className="text-gray-400">•</span>
 
-                {/* Date */}
-                <time>{formatDate(post.date)}</time>
+                    {/* Date */}
+                    <time>{formatDate(post.date)}</time>
 
-                {primaryCategory && (
-                    <>
-                        <span className="text-gray-400">•</span>
+                    {primaryCategory && (
+                        <>
+                            <span className="text-gray-400">•</span>
 
-                        {/* Category */}
-                        <Link
-                            href={`/categories/${primaryCategory.slug}`}
-                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-medium hover:bg-blue-100"
-                        >
-                            {/* Placeholder for future icon */}
-                            <span className="text-xs">#</span>
-                            {primaryCategory.name}
-                        </Link>
-                    </>
-                )}
-            </div>
+                            {/* Category */}
+                            <Link
+                                href={`/categories/${primaryCategory.slug}`}
+                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-medium hover:bg-blue-100"
+                            >
+                                {/* Placeholder for future icon */}
+                                <span className="text-xs">#</span>
+                                {primaryCategory.name}
+                            </Link>
+                        </>
+                    )}
+                </div>
+            </header>
 
-            <div className="bg-white">
-                <article className="max-w-full lg:max-w-3xl rounded-xl p-0 lg:p-7">
-                    {/* Featured image */}
-                    {featuredImage && (
+            {/* <div className="bg-white"> */}
+            <article className="post-single-page max-w-full lg:max-w-3xl rounded-xl p-0 lg:p-7">
+                {/* Featured image */}
+                {/* {featuredImage && (
                         <div className="mb-10">
                             <Image
                                 src={featuredImage}
@@ -91,12 +96,12 @@ export default async function PostPage({ params }: Props) {
                                 priority
                             />
                         </div>
-                    )}
+                    )} */}
 
-                    {/* Content */}
-                    <PostBodyClient html={contentHtml} />
-                </article>
-            </div>
+                {/* Content */}
+                <PostBodyClient html={contentHtml} />
+            </article>
+            {/* </div> */}
         </TwoColLayout>
     );
 }

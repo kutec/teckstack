@@ -1,11 +1,11 @@
-// components/PostSidebar.tsx
+import TableOfContents from './TableOfContents';
+
 export default function PostSidebar() {
     return (
         <div className="space-y-6">
-            {/* TOC placeholder */}
-            <section className="border rounded-lg p-4">
-                <h3 className="text-sm font-semibold text-gray-900 mb-2">On this page</h3>
-                <p className="text-sm text-gray-500">Table of contents coming soon.</p>
+            {/* TOC */}
+            <section className="border rounded-lg p-4 bg-white">
+                <TableOfContents />
             </section>
 
             {/* Sponsor / Ad */}

@@ -9,14 +9,6 @@ $heading-scale: 0.5rem; // Amount each heading level decreases by from h1 to h6
             // Calculation: starts at base-size for h1, subtracts step for each level
             font-size: $base-size - ($step * ($i - 1));
 
-
-            // +*:not(.post-meta) {
-            //     margin-top: $base-size + ($step - 1.5rem);
-            // }
-
-            // p+& {
-            //     margin-top: $base-size + ($step + 0.5rem);
-            // }
             *+& {
                 margin-top: $base-size - ($step * ($i - 2.5)) !important;
             }
@@ -90,6 +82,7 @@ body {
             font-size: .85rem;
             box-shadow: 0 1px 2px rgba(0, 0, 0, .25);
             color: #78350f;
+            position: relative;
 
             *+* {
                 margin-top: .5rem;
@@ -105,7 +98,22 @@ body {
                 color: #92400e;
                 border-radius: .5rem 0 0 0;
                 margin-top: -.25rem;
+
+                &:before {
+                    content: "📌";
+                    display: inline-block;
+                    margin-right: 3px;
+                }
             }
+        }
+
+        // Generate heading styles
+        .is-style-text-subtitle {
+            font-size: 1.50rem;
+            font-weight: 500;
+            color: #374151;
+            /* Tailwind's gray-700 */
+            margin-top: 0 !important;
         }
     }
 }
